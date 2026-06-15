@@ -72,7 +72,7 @@ export default function Dashboard({
         </div>
 
         <div className="gauge-wrapper">
-          <svg className="score-gauge" viewBox="0 0 200 200">
+          <svg className="score-gauge" viewBox="0 0 200 200" role="img" aria-label="Carbon Impact Score Gauge">
             <defs>
               <linearGradient id="gauge-grad-react" x1="0%" y1="100%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#ff4757" />
@@ -152,6 +152,7 @@ export default function Dashboard({
                 value={habits.transport} 
                 onChange={(e) => onHabitChange('transport', e.target.value)}
                 className="form-select"
+                aria-label="Daily Commute Option"
               >
                 <option value="car_single">Solo Petrol Car</option>
                 <option value="car_pool">Car Pool / Ride Share</option>
@@ -181,6 +182,7 @@ export default function Dashboard({
                 value={habits.diet} 
                 onChange={(e) => onHabitChange('diet', e.target.value)}
                 className="form-select"
+                aria-label="Dietary Pattern Option"
               >
                 <option value="meat_heavy">Frequent Red Meat</option>
                 <option value="meat_moderate">Balanced Meat</option>
@@ -209,6 +211,7 @@ export default function Dashboard({
                 value={habits.energy} 
                 onChange={(e) => onHabitChange('energy', e.target.value)}
                 className="form-select"
+                aria-label="AC / Electricity Option"
               >
                 <option value="high">High (>8 hrs AC)</option>
                 <option value="medium">Medium (3-8 hrs AC)</option>
@@ -236,6 +239,7 @@ export default function Dashboard({
                 value={habits.waste} 
                 onChange={(e) => onHabitChange('waste', e.target.value)}
                 className="form-select"
+                aria-label="Waste Segregation Option"
               >
                 <option value="none">No separation</option>
                 <option value="basic">Dry & Wet split</option>

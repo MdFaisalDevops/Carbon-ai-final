@@ -29,20 +29,20 @@
         <span class="brand-name">CarbonMind <span class="accent-text">AI</span></span>
       </div>
       
-      <nav class="nav-menu">
-        <a href="#dashboard" class="nav-item active" data-screen="dashboard">
+      <nav class="nav-menu" role="tablist" aria-label="Main Navigation">
+        <a href="#dashboard" class="nav-item active" data-screen="dashboard" role="tab" aria-selected="true" id="dashboard-tab" aria-controls="dashboard-screen">
           <i data-lucide="layout-dashboard"></i>
           <span>Dashboard</span>
         </a>
-        <a href="#breakdown" class="nav-item" data-screen="breakdown">
+        <a href="#breakdown" class="nav-item" data-screen="breakdown" role="tab" aria-selected="false" id="breakdown-tab" aria-controls="breakdown-screen">
           <i data-lucide="bar-chart-3"></i>
           <span>Breakdown</span>
         </a>
-        <a href="#coach" class="nav-item" data-screen="coach">
+        <a href="#coach" class="nav-item" data-screen="coach" role="tab" aria-selected="false" id="coach-tab" aria-controls="coach-screen">
           <i data-lucide="bot"></i>
           <span>AI Coach</span>
         </a>
-        <a href="#gamification" class="nav-item" data-screen="gamification">
+        <a href="#gamification" class="nav-item" data-screen="gamification" role="tab" aria-selected="false" id="gamification-tab" aria-controls="gamification-screen">
           <i data-lucide="trophy"></i>
           <span>Eco Level</span>
         </a>
@@ -92,7 +92,7 @@
       <div class="screens-container">
         
         <!-- ==================== SCREEN 1: DASHBOARD ==================== -->
-        <section id="dashboard-screen" class="screen active">
+        <section id="dashboard-screen" class="screen active" role="tabpanel" aria-labelledby="dashboard-tab">
           <div class="dashboard-grid">
             <!-- Col 1: Carbon Score (Tesla Gauge style) -->
             <div class="glass-card score-panel">
@@ -103,7 +103,7 @@
                 </span>
               </div>
               <div class="gauge-wrapper">
-                <svg class="score-gauge" viewBox="0 0 200 200">
+                <svg class="score-gauge" viewBox="0 0 200 200" role="img" aria-label="Carbon Impact Score Gauge">
                   <defs>
                     <linearGradient id="gauge-grad" x1="0%" y1="100%" x2="100%" y2="0%">
                       <stop offset="0%" stop-color="#ff4757" />
@@ -159,7 +159,7 @@
                     </div>
                   </div>
                   <div class="habit-control">
-                    <select id="habit-transport" class="form-select">
+                    <select id="habit-transport" class="form-select" aria-label="Daily Commute Option">
                       <option value="car_single">Single Occupant Car</option>
                       <option value="car_pool">Car Pool / Uber Share</option>
                       <option value="metro">Metro / Public Transit</option>
@@ -179,7 +179,7 @@
                     </div>
                   </div>
                   <div class="habit-control">
-                    <select id="habit-diet" class="form-select">
+                    <select id="habit-diet" class="form-select" aria-label="Dietary Pattern Option">
                       <option value="meat_heavy">Frequent Red Meat</option>
                       <option value="meat_moderate">Balanced Meat/Poultry</option>
                       <option value="vegetarian">Pure Vegetarian</option>
@@ -198,7 +198,7 @@
                     </div>
                   </div>
                   <div class="habit-control">
-                    <select id="habit-energy" class="form-select">
+                    <select id="habit-energy" class="form-select" aria-label="AC / Electricity Usage Option">
                       <option value="high">High (>8 hrs AC/day)</option>
                       <option value="medium">Medium (3-8 hrs AC/day)</option>
                       <option value="low">Low (<3 hrs AC/day)</option>
@@ -217,7 +217,7 @@
                     </div>
                   </div>
                   <div class="habit-control">
-                    <select id="habit-waste" class="form-select">
+                    <select id="habit-waste" class="form-select" aria-label="Waste Segregation Option">
                       <option value="none">No segregation</option>
                       <option value="basic">Dry & Wet separated</option>
                       <option value="compost">Composting & Zero single-use</option>
@@ -283,7 +283,7 @@
         </section>
 
         <!-- ==================== SCREEN 2: LIFESTYLE BREAKDOWN ==================== -->
-        <section id="breakdown-screen" class="screen">
+        <section id="breakdown-screen" class="screen" role="tabpanel" aria-labelledby="breakdown-tab" aria-hidden="true">
           <div class="breakdown-grid">
             <!-- Left Panel: Breakdown Overview & Visuals -->
             <div class="glass-card breakdown-visual-panel">
@@ -365,7 +365,7 @@
         </section>
 
         <!-- ==================== SCREEN 3: AI COACH ==================== -->
-        <section id="coach-screen" class="screen">
+        <section id="coach-screen" class="screen" role="tabpanel" aria-labelledby="coach-tab" aria-hidden="true">
           <div class="coach-grid">
             <!-- Left panel: Pre-designed quick questions and intelligence prompt instructions -->
             <div class="glass-card prompt-guide-panel">
@@ -435,7 +435,7 @@
 
               <div class="chat-input-area">
                 <form id="chat-form" class="chat-form">
-                  <input type="text" id="chat-input" placeholder="Type your sustainability question..." autocomplete="off">
+                  <input type="text" id="chat-input" placeholder="Type your sustainability question..." autocomplete="off" aria-label="Ask your sustainability question">
                   <button type="submit" class="btn btn-primary chat-send-btn" aria-label="Send Message">
                     <i data-lucide="send"></i>
                   </button>
@@ -446,7 +446,7 @@
         </section>
 
         <!-- ==================== SCREEN 4: GAMIFICATION & LEADERBOARD ==================== -->
-        <section id="gamification-screen" class="screen">
+        <section id="gamification-screen" class="screen" role="tabpanel" aria-labelledby="gamification-tab" aria-hidden="true">
           <div class="gamification-grid">
             <!-- Left side: Level status, Streaks, Achievements -->
             <div class="glass-card level-status-card">

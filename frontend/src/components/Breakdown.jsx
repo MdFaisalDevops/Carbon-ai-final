@@ -56,7 +56,7 @@ export default function Breakdown({ habits, dailyFootprint }) {
         <div className="visuals-container">
           <div className="radial-ring-section">
             <div className="donut-chart-wrapper">
-              <svg viewBox="0 0 160 160" className="donut-chart">
+              <svg viewBox="0 0 160 160" className="donut-chart" role="img" aria-label="Emission Category Proportions Donut Chart">
                 <circle cx="80" cy="80" r="60" fill="transparent" stroke="rgba(255,255,255,0.02)" strokeWidth="16"/>
                 {segments.map((seg, idx) => {
                   const percentage = seg.val / (total || 1);

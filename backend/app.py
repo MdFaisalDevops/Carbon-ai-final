@@ -287,11 +287,12 @@ async def ask_ai_coach(query: CoachQuery):
     
     if openai_key:
         try:
-            # Note: We run this using standard openai SDK if imported
-            from openai import OpenAI
-            client = OpenAI(api_key=openai_key)
+            global _openai_client_cached
+            if '_openai_client_cached' not in globals() or _openai_client_cached is None:
+                from openai import OpenAI
+                _openai_client_cached = OpenAI(api_key=openai_key)
             
-            response = client.chat.completions.create(
+            response = _openai_client_cached.chat.completions.create(
                 model="gpt-4o-mini",
                 messages=[
                     {"role": "system", "content": MASTER_COACH_PROMPT_SYSTEM},

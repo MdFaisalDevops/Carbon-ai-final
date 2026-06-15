@@ -255,6 +255,7 @@ export default function AICoach({ habits, personality, dailyFootprint }) {
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Ask a sustainability question..." 
               className="chat-input-field"
+              aria-label="Ask a sustainability question"
             />
             <button type="submit" className="btn btn-primary chat-send-btn" aria-label="Send query">
               <Send size={16} />

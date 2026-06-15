@@ -80,7 +80,7 @@ export default function Gamification({ score, level, streakDays, weeklySaved, ha
             <span>{minBound}</span>
             <span>{maxBound}</span>
           </div>
-          <div className="level-bar-track">
+          <div className="level-bar-track" role="progressbar" aria-valuenow={score} aria-valuemin={minBound} aria-valuemax={maxBound} aria-label="Eco Level Progress">
             <div className="level-bar-fill" style={{ width: `${progressPercent}%` }}></div>
           </div>
           <div className="level-bar-labels">

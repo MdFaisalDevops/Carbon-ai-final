@@ -254,8 +254,10 @@ function initRouting() {
     navItems.forEach(item => {
       if (item.getAttribute('data-screen') === screenId) {
         item.classList.add('active');
+        item.setAttribute('aria-selected', 'true');
       } else {
         item.classList.remove('active');
+        item.setAttribute('aria-selected', 'false');
       }
     });
 
@@ -263,8 +265,10 @@ function initRouting() {
     screens.forEach(screen => {
       if (screen.id === `${screenId}-screen`) {
         screen.classList.add('active');
+        screen.setAttribute('aria-hidden', 'false');
       } else {
         screen.classList.remove('active');
+        screen.setAttribute('aria-hidden', 'true');
       }
     });
 
