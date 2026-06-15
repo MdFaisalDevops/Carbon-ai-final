@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarbonMind AI — Carbon Intelligence Engine</title>
+  <meta name="description" content="Track, understand, and optimize your carbon footprint using reasoning sustainability intelligence.">
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Main CSS styling -->
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Background Glow Orbs for Tesla Dashboard Tech Feel -->
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+  
+  <div class="app-container">
+    <!-- Sidebar Navigation (Desktop) -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">
+          <i data-lucide="leaf" class="logo-icon"></i>
+        </div>
+        <span class="brand-name">CarbonMind <span class="accent-text">AI</span></span>
+      </div>
+      
+      <nav class="nav-menu">
+        <a href="#dashboard" class="nav-item active" data-screen="dashboard">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="#breakdown" class="nav-item" data-screen="breakdown">
+          <i data-lucide="bar-chart-3"></i>
+          <span>Breakdown</span>
+        </a>
+        <a href="#coach" class="nav-item" data-screen="coach">
+          <i data-lucide="bot"></i>
+          <span>AI Coach</span>
+        </a>
+        <a href="#gamification" class="nav-item" data-screen="gamification">
+          <i data-lucide="trophy"></i>
+          <span>Eco Level</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <div class="avatar">U</div>
+          <div class="user-info">
+            <span class="user-name">Arjun Mehta</span>
+            <span class="user-level">Eco Level: Hero</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Viewport -->
+    <main class="main-viewport">
+      <!-- Top Bar Header -->
+      <header class="top-bar">
+        <div class="screen-title-area">
+          <h1 id="screen-title" class="screen-title">Dashboard</h1>
+          <p id="screen-subtitle" class="screen-subtitle">Your real-time carbon intelligence overview.</p>
+        </div>
+        
+        <div class="header-widgets">
+          <!-- Weekly Savings Chip -->
+          <div class="widget-chip green-glow" title="What this means: Carbon saved compared to baseline this week">
+            <i data-lucide="sparkles"></i>
+            <span>Saved <strong id="weekly-saved-val">48.2</strong> kg CO₂</span>
+          </div>
+          
+          <!-- Streak Indicator -->
+          <div class="widget-chip streak-chip" title="What this means: Days in a row completing eco actions">
+            <i data-lucide="flame" class="streak-icon"></i>
+            <span><strong id="streak-count-val">12</strong> Day Streak</span>
+          </div>
+
+          <!-- Mobile Nav Toggle button -->
+          <button class="mobile-toggle-btn" id="mobile-toggle" aria-label="Toggle Navigation">
+            <i data-lucide="menu"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Screens Container -->
+      <div class="screens-container">
+        
+        <!-- ==================== SCREEN 1: DASHBOARD ==================== -->
+        <section id="dashboard-screen" class="screen active">
+          <div class="dashboard-grid">
+            <!-- Col 1: Carbon Score (Tesla Gauge style) -->
+            <div class="glass-card score-panel">
+              <div class="card-header">
+                <h3>Carbon Impact Score</h3>
+                <span class="info-icon" title="What this means: Out of 1000. Higher is better (less emissions). Starts at 1000 and drops as footprint increases.">
+                  <i data-lucide="help-circle"></i>
+                </span>
+              </div>
+              <div class="gauge-wrapper">
+                <svg class="score-gauge" viewBox="0 0 200 200">
+                  <defs>
+                    <linearGradient id="gauge-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#ff4757" />
+                      <stop offset="50%" stop-color="#ff9f43" />
+                      <stop offset="100%" stop-color="#00f59b" />
+                    </linearGradient>
+                    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="8" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
+                  <!-- Base track -->
+                  <path class="gauge-track" d="M 30,170 A 80,80 0 1,1 170,170" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="14" stroke-linecap="round"/>
+                  <!-- Dynamic Fill path -->
+                  <path id="gauge-fill" class="gauge-fill" d="M 30,170 A 80,80 0 1,1 170,170" fill="none" stroke="url(#gauge-grad)" stroke-width="14" stroke-linecap="round" stroke-dasharray="439.8" stroke-dashoffset="439.8"/>
+                </svg>
+                <div class="gauge-content">
+                  <span id="score-text" class="score-display">0</span>
+                  <span id="level-badge" class="level-pill">Loading...</span>
+                </div>
+              </div>
+              <div class="score-footer">
+                <div class="metric-item">
+                  <span class="label">Daily Footprint</span>
+                  <span class="value" id="daily-footprint-text">14.2 kg CO₂</span>
+                </div>
+                <div class="divider"></div>
+                <div class="metric-item">
+                  <span class="label">Indian Urban Avg</span>
+                  <span class="value">28.5 kg CO₂</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Col 2: Habits Controller & Quick Config (Duolingo style interactive inputs) -->
+            <div class="glass-card habits-panel">
+              <div class="card-header">
+                <h3>Habit Modifiers</h3>
+                <span class="info-icon" title="What this means: Adjust these sliders and toggles to simulate changes in your daily routine and watch your carbon score adapt in real-time.">
+                  <i data-lucide="help-circle"></i>
+                </span>
+              </div>
+              <p class="panel-subtitle">Configure your routine to optimize emissions</p>
+              
+              <div class="habits-list">
+                <!-- Transport habit -->
+                <div class="habit-row">
+                  <div class="habit-desc">
+                    <div class="habit-icon-wrapper"><i data-lucide="car"></i></div>
+                    <div class="habit-details">
+                      <span class="habit-title">Daily Commute</span>
+                      <span class="habit-subtitle" id="transport-subtitle">Car (Single Occupant)</span>
+                    </div>
+                  </div>
+                  <div class="habit-control">
+                    <select id="habit-transport" class="form-select">
+                      <option value="car_single">Single Occupant Car</option>
+                      <option value="car_pool">Car Pool / Uber Share</option>
+                      <option value="metro">Metro / Public Transit</option>
+                      <option value="ev">Electric Vehicle (EV)</option>
+                      <option value="cycle">Cycle / Walking / WFH</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Diet Habit -->
+                <div class="habit-row">
+                  <div class="habit-desc">
+                    <div class="habit-icon-wrapper"><i data-lucide="utensils-2"></i></div>
+                    <div class="habit-details">
+                      <span class="habit-title">Dietary Pattern</span>
+                      <span class="habit-subtitle" id="diet-subtitle">Frequent Meat-based</span>
+                    </div>
+                  </div>
+                  <div class="habit-control">
+                    <select id="habit-diet" class="form-select">
+                      <option value="meat_heavy">Frequent Red Meat</option>
+                      <option value="meat_moderate">Balanced Meat/Poultry</option>
+                      <option value="vegetarian">Pure Vegetarian</option>
+                      <option value="vegan">Plant-Based / Vegan</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Electricity Habit -->
+                <div class="habit-row">
+                  <div class="habit-desc">
+                    <div class="habit-icon-wrapper"><i data-lucide="zap"></i></div>
+                    <div class="habit-details">
+                      <span class="habit-title">AC / Electricity Usage</span>
+                      <span class="habit-subtitle" id="energy-subtitle">High (>8 hrs AC/day)</span>
+                    </div>
+                  </div>
+                  <div class="habit-control">
+                    <select id="habit-energy" class="form-select">
+                      <option value="high">High (>8 hrs AC/day)</option>
+                      <option value="medium">Medium (3-8 hrs AC/day)</option>
+                      <option value="low">Low (<3 hrs AC/day)</option>
+                      <option value="solar">Solar-powered / Off-grid</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Waste Habit -->
+                <div class="habit-row">
+                  <div class="habit-desc">
+                    <div class="habit-icon-wrapper"><i data-lucide="trash-2"></i></div>
+                    <div class="habit-details">
+                      <span class="habit-title">Waste Segregation</span>
+                      <span class="habit-subtitle" id="waste-subtitle">No segregation, high plastic</span>
+                    </div>
+                  </div>
+                  <div class="habit-control">
+                    <select id="habit-waste" class="form-select">
+                      <option value="none">No segregation</option>
+                      <option value="basic">Dry & Wet separated</option>
+                      <option value="compost">Composting & Zero single-use</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Row 2 Col 1: AI Recommendation of the Day (Notion minimalism) -->
+            <div class="glass-card recommendation-card green-accent-border">
+              <div class="badge-tag">AI STRATEGIST</div>
+              <h3>Recommendation of the Day</h3>
+              <div class="rec-body">
+                <p id="rec-text" class="rec-text">Upgrade your daily commute to Metro or EV. By making this single modification, you will prevent approximately <strong>340 kg of CO₂</strong> from entering the atmosphere annually, matching an urban Indian average increase of <strong>+180 Carbon Score points</strong>.</p>
+                <div class="action-buttons-row">
+                  <button id="apply-rec-btn" class="btn btn-primary btn-sm">
+                    <i data-lucide="sparkles"></i> Try this adjustment
+                  </button>
+                  <button id="coach-redirect-btn" class="btn btn-secondary btn-sm">
+                    Ask AI Coach <i data-lucide="arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 2 Col 2: Top 3 Impact Habits Panel -->
+            <div class="glass-card habits-summary-panel">
+              <div class="card-header">
+                <h3>Top Impact Habits</h3>
+                <span class="info-icon" title="What this means: The habits in your routine that are causing the largest carbon footprint. Hover for breakdown.">
+                  <i data-lucide="help-circle"></i>
+                </span>
+              </div>
+              <ul class="impact-habits-list" id="top-impact-habits">
+                <!-- Dynamic Content goes here -->
+              </ul>
+            </div>
+
+            <!-- Row 3: Progress Trend Line (Apple Health Style) -->
+            <div class="glass-card trend-panel col-span-2">
+              <div class="card-header-row">
+                <div class="card-header">
+                  <h3>Carbon Savings Trend</h3>
+                  <span class="info-icon" title="What this means: Your weekly savings over the last 6 weeks compared to your baseline. High columns represent high energy efficiency.">
+                    <i data-lucide="help-circle"></i>
+                  </span>
+                </div>
+                <div class="trend-tabs">
+                  <button class="trend-tab active" data-period="weekly">Weekly</button>
+                  <button class="trend-tab" data-period="monthly">Monthly</button>
+                </div>
+              </div>
+              
+              <!-- Custom Interactive Bar Chart Container -->
+              <div class="chart-container">
+                <svg id="trend-svg" viewBox="0 0 600 180" width="100%" height="180">
+                  <!-- Dynamic SVG Chart Content will be generated by app.js -->
+                </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== SCREEN 2: LIFESTYLE BREAKDOWN ==================== -->
+        <section id="breakdown-screen" class="screen">
+          <div class="breakdown-grid">
+            <!-- Left Panel: Breakdown Overview & Visuals -->
+            <div class="glass-card breakdown-visual-panel">
+              <div class="card-header">
+                <h3>Emission Category Proportions</h3>
+                <span class="info-icon" title="What this means: Visual distribution of emissions in kg CO₂ per day. Aim to reduce the largest bar.">
+                  <i data-lucide="help-circle"></i>
+                </span>
+              </div>
+              
+              <div class="visuals-container">
+                <div class="radial-ring-section">
+                  <!-- Custom SVG Donut Chart -->
+                  <div class="donut-chart-wrapper">
+                    <svg viewBox="0 0 160 160" class="donut-chart">
+                      <circle cx="80" cy="80" r="60" fill="transparent" stroke="rgba(255,255,255,0.02)" stroke-width="16"/>
+                      <circle id="donut-transport" class="donut-segment" cx="80" cy="80" r="60" fill="transparent" stroke="#ff4757" stroke-width="16" stroke-dasharray="377" stroke-dashoffset="377" stroke-linecap="round"/>
+                      <circle id="donut-diet" class="donut-segment" cx="80" cy="80" r="60" fill="transparent" stroke="#ff9f43" stroke-width="16" stroke-dasharray="377" stroke-dashoffset="377" stroke-linecap="round"/>
+                      <circle id="donut-energy" class="donut-segment" cx="80" cy="80" r="60" fill="transparent" stroke="#00f59b" stroke-width="16" stroke-dasharray="377" stroke-dashoffset="377" stroke-linecap="round"/>
+                      <circle id="donut-waste" class="donut-segment" cx="80" cy="80" r="60" fill="transparent" stroke="#374151" stroke-width="16" stroke-dasharray="377" stroke-dashoffset="377" stroke-linecap="round"/>
+                    </svg>
+                    <div class="donut-center-text">
+                      <span id="donut-total-val" class="total-co2">0.0</span>
+                      <span class="unit">kg CO₂/day</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Legend containing categories and direct readings -->
+                <div class="breakdown-legend" id="breakdown-legend-list">
+                  <!-- Dynamic content -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Panel: Biggest Pollution Source & Deep Insight -->
+            <div class="glass-card hotspot-panel red-accent-border">
+              <div class="badge-tag tag-alert">HOTSPOT CRITICAL</div>
+              <div class="card-header">
+                <h3>Primary Carbon Driver</h3>
+                <span class="info-icon" title="What this means: The lifestyle sector responsible for the highest proportion of your total CO₂ outputs.">
+                  <i data-lucide="help-circle"></i>
+                </span>
+              </div>
+              <div class="hotspot-content">
+                <div class="hotspot-hero">
+                  <div class="hotspot-symbol" id="hotspot-icon-container">
+                    <i data-lucide="car" class="hotspot-icon"></i>
+                  </div>
+                  <div class="hotspot-summary">
+                    <h4 id="hotspot-title">Transport Sector</h4>
+                    <p id="hotspot-impact-perc">64% of your emissions</p>
+                  </div>
+                </div>
+                <div class="hotspot-body">
+                  <p id="hotspot-desc">Your daily travel using a single occupant car is your highest emission driver. Moving to metro or ride-sharing even 3 times a week can drop your carbon profile significantly.</p>
+                  
+                  <div class="alert-box warn">
+                    <i data-lucide="alert-triangle"></i>
+                    <span><strong>Pro Tip:</strong> An average Indian commuter in dense traffic produces 2.4x standard highway emissions due to idling. Metro travel saves up to 88% emissions per km.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Full-width Bottom Panel: Category Grid (Apple Health Detail) -->
+            <div class="glass-card categories-detail-panel col-span-2">
+              <div class="card-header">
+                <h3>Category Insights</h3>
+                <span class="info-icon" title="What this means: Deep-dive details of your carbon profile categories and alternative recommendation indexes.">
+                  <i data-lucide="help-circle"></i>
+                </span>
+              </div>
+              <div class="category-cards-grid" id="category-cards-container">
+                <!-- Category detail cards loaded dynamically -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== SCREEN 3: AI COACH ==================== -->
+        <section id="coach-screen" class="screen">
+          <div class="coach-grid">
+            <!-- Left panel: Pre-designed quick questions and intelligence prompt instructions -->
+            <div class="glass-card prompt-guide-panel">
+              <h3>Carbon Reasoning Coach</h3>
+              <p class="panel-subtitle">CarbonMind AI uses a sustainability intelligence framework to guide your transition.</p>
+              
+              <div class="coach-prompt-info">
+                <p class="info-text">Select one of our carbon strategy pathways or ask a custom question below:</p>
+                <div class="quick-prompts-list">
+                  <button class="quick-prompt-btn" data-query="How can I optimize my AC electricity footprint in Bangalore?">
+                    <i data-lucide="message-square"></i>
+                    <span>Optimize AC footprint in Bangalore</span>
+                  </button>
+                  <button class="quick-prompt-btn" data-query="What is the realistic Indian dietary alternative to reduce carbon?">
+                    <i data-lucide="message-square"></i>
+                    <span>Indian diet alternative analysis</span>
+                  </button>
+                  <button class="quick-prompt-btn" data-query="Is commuting in an Uber Share better than self-driven petrol cars?">
+                    <i data-lucide="message-square"></i>
+                    <span>Uber Share vs Petrol car commute</span>
+                  </button>
+                  <button class="quick-prompt-btn" data-query="How does segregating and composting waste help my Eco Level?">
+                    <i data-lucide="message-square"></i>
+                    <span>Waste segregation impact</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Personality Card -->
+              <div class="glass-card inner-card personality-card mt-4">
+                <div class="card-header">
+                  <h4>Carbon Personality Type</h4>
+                </div>
+                <div class="personality-content">
+                  <div class="personality-avatar">
+                    <i data-lucide="user-check" id="personality-icon"></i>
+                  </div>
+                  <div class="personality-details">
+                    <h5 id="personality-type-text">Eco Beginner</h5>
+                    <p id="personality-desc-text">You are starting your eco-journey. Your emissions show high potential for low-effort optimizations.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right panel: Interactive Chat interface -->
+            <div class="glass-card chat-panel">
+              <div class="chat-header">
+                <div class="coach-avatar">
+                  <i data-lucide="bot"></i>
+                </div>
+                <div class="coach-status">
+                  <h4>CarbonMind AI Coach</h4>
+                  <span class="status-indicator online">Reasoning Engine Active</span>
+                </div>
+              </div>
+
+              <div class="chat-messages-container" id="chat-messages">
+                <!-- Initial welcoming message -->
+                <div class="message system-msg">
+                  <div class="msg-content">
+                    <p>Welcome! I am CarbonMind AI, your personal carbon strategist. I analyze your lifestyle parameters and design tailored mitigation plans for urban Indian contexts.</p>
+                    <p>Ask me how to reduce your travel footprint, optimize your home energy, or suggest dietary changes.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="chat-input-area">
+                <form id="chat-form" class="chat-form">
+                  <input type="text" id="chat-input" placeholder="Type your sustainability question..." autocomplete="off">
+                  <button type="submit" class="btn btn-primary chat-send-btn" aria-label="Send Message">
+                    <i data-lucide="send"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== SCREEN 4: GAMIFICATION & LEADERBOARD ==================== -->
+        <section id="gamification-screen" class="screen">
+          <div class="gamification-grid">
+            <!-- Left side: Level status, Streaks, Achievements -->
+            <div class="glass-card level-status-card">
+              <div class="card-header">
+                <h3>Level Progression</h3>
+                <span class="info-icon" title="What this means: Your rank in the community. Ranks increase as your Carbon Impact Score rises.">
+                  <i data-lucide="help-circle"></i>
+                </span>
+              </div>
+              <div class="level-progress-hero">
+                <div class="level-badge-large animate-glow">
+                  <i data-lucide="award" class="level-badge-icon"></i>
+                </div>
+                <div class="level-detail-texts">
+                  <span class="level-subtitle-top">Current Standing</span>
+                  <h4 id="user-standing-level">Conscious User</h4>
+                  <p id="points-to-next-level">Reach 751 points for Balanced User</p>
+                </div>
+              </div>
+              
+              <div class="level-progress-bar-container">
+                <div class="level-bar-bounds">
+                  <span id="prev-level-bound">301</span>
+                  <span id="next-level-bound">750</span>
+                </div>
+                <div class="level-bar-track">
+                  <div id="level-progress-fill" class="level-bar-fill" style="width: 50%;"></div>
+                </div>
+                <div class="level-bar-labels">
+                  <span id="current-score-label">652 Score</span>
+                  <span>Next Level</span>
+                </div>
+              </div>
+
+              <!-- Streak status box -->
+              <div class="streak-status-box mt-4">
+                <div class="streak-box-icon">
+                  <i data-lucide="flame" class="streak-flame-active"></i>
+                </div>
+                <div class="streak-box-details">
+                  <h4><span id="streak-days-span">12</span> Day Streak Active!</h4>
+                  <p>You have logged your habits or implemented carbon improvements daily. Keep it up to earn the <strong>Consistency Streak</strong> badge!</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right side: Badges Board -->
+            <div class="glass-card badges-card">
+              <div class="card-header">
+                <h3>Your Carbon Mind Badges</h3>
+                <span class="info-icon" title="What this means: Special milestones unlocked by optimizing specific lifestyle areas.">
+                  <i data-lucide="help-circle"></i>
+                </span>
+              </div>
+              <p class="panel-subtitle">Perform green adjustments to unlock new achievements</p>
+              
+              <div class="badges-grid" id="badges-container-list">
+                <!-- Badges dynamically rendered here with active/inactive states -->
+              </div>
+            </div>
+
+            <!-- Bottom: Leaderboard (Duolingo visual competition style) -->
+            <div class="glass-card leaderboard-card col-span-2">
+              <div class="card-header">
+                <h3>Global Leaderboard</h3>
+                <span class="info-icon" title="What this means: Community rankings sorted by Carbon Impact Score. Your position shifts in real-time as you tweak your habits.">
+                  <i data-lucide="help-circle"></i>
+                </span>
+              </div>
+              <p class="panel-subtitle">Compete with urban green innovators in India</p>
+
+              <div class="leaderboard-container">
+                <div class="leaderboard-header-row">
+                  <span class="col-rank">Rank</span>
+                  <span class="col-user">User</span>
+                  <span class="col-level">Level</span>
+                  <span class="col-streak">Streak</span>
+                  <span class="col-score">Carbon Score</span>
+                  <span class="col-saved">Weekly Saved</span>
+                </div>
+                <div class="leaderboard-rows" id="leaderboard-rows-container">
+                  <!-- Dynamic rows go here -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+      </div>
+    </main>
+  </div>
+
+  <!-- Confetti canvas overlay -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Notification Toast -->
+  <div class="toast-container" id="toast-container"></div>
+  
+  <!-- Main Application Logic script -->
+  <script src="/static/app.js"></script>
+</body>
+</html>
